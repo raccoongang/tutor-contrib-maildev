@@ -21,7 +21,7 @@ hooks.Filters.CONFIG_DEFAULTS.add_items(
         ("MAILDEV_SMTP_PORT", 1025),
         ("MAILDEV_PUBLIC_HOST", "maildev.{{ LMS_HOST }}"),
         ("MAILDEV_INDEX_PREFIX", "tutor_"),
-        ("MAILDEV_DOCKER_IMAGE", "maildev/maildev")
+        ("MAILDEV_DOCKER_IMAGE", "maildev/maildev"),
     ]
 )
 
@@ -33,6 +33,7 @@ hooks.Filters.CONFIG_OVERRIDES.add_items(
     ]
 )
 
+
 @hooks.Filters.APP_PUBLIC_HOSTS.add()
 def add_maildev_hosts(
     hosts: list[str], context_name: t.Literal["local", "dev"]
@@ -42,19 +43,6 @@ def add_maildev_hosts(
     else:
         hosts.append("{{ MAILDEV_PUBLIC_HOST }}")
     return hosts
-
-
-# For each task added to MY_INIT_TASKS, we load the task template
-# and add it to the CLI_DO_INIT_TASKS filter, which tells Tutor to
-# run it as part of the `init` job.
-for service, template_path in MY_INIT_TASKS:
-    full_path: str = str(
-        importlib_resources.files("tutormaildev")
-        / os.path.join("templates", *template_path)
-    )
-    with open(full_path, encoding="utf-8") as init_task_file:
-        init_task: str = init_task_file.read()
-    hooks.Filters.CLI_DO_INIT_TASKS.add_item((service, init_task))
 
 
 ########################################

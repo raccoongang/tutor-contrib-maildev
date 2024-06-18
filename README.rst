@@ -1,7 +1,7 @@
 maildev plugin for `Tutor <https://docs.tutor.edly.io>`__
 ###############################################################################
 
-This plugin enabled local maildev server for Tutor development.
+This plugin enabled local maildev server for Tutor development.s
 
 
 Installation
