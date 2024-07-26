@@ -9,7 +9,6 @@ Installation
 
 .. code-block:: bash
 
-    tutor config save --set MAILDEV_SMTP_PORT=1025
     pip install git+https://github.com/andrii-hantkovskyi/tutor-contrib-maildev
 
 Usage

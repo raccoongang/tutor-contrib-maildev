@@ -11,6 +11,8 @@ from tutor import hooks
 # CONFIGURATION
 ########################################
 
+DEFAULT_EMAIL_PORT = 1025
+
 hooks.Filters.CONFIG_DEFAULTS.add_items(
     [
         # Add your new settings that have default values here.
@@ -18,7 +20,7 @@ hooks.Filters.CONFIG_DEFAULTS.add_items(
         # Prefix your setting names with 'MAILDEV_'.
         ("MAILDEV_WEB_PORT", 1080),
         ("MAILDEV_SMTP_HOST", "maildev"),
-        ("MAILDEV_SMTP_PORT", 1025),
+        ("MAILDEV_SMTP_PORT", DEFAULT_EMAIL_PORT),
         ("MAILDEV_PUBLIC_HOST", "{{ MAILDEV_SMTP_HOST }}.{{ LMS_HOST }}"),
         ("MAILDEV_DOCKER_IMAGE", "maildev/maildev"),
     ]
@@ -28,7 +30,7 @@ hooks.Filters.CONFIG_OVERRIDES.add_items(
     [
         # Add your new settings that override existing settings here.
         # Each new setting is a pair: (setting_name, new_value).
-        ("EMAIL_PORT", "{{ MAILDEV_SMTP_PORT }}"),
+        ("EMAIL_PORT", DEFAULT_EMAIL_PORT),
     ]
 )
 
