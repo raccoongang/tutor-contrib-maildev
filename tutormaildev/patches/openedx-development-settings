@@ -1,0 +1,3 @@
+EMAIL_PORT = "{{ MAILDEV_SMTP_PORT }}"
+EMAIL_HOST = "{{ MAILDEV_SMTP_HOST }}"
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"

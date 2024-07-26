@@ -16,11 +16,10 @@ hooks.Filters.CONFIG_DEFAULTS.add_items(
         # Add your new settings that have default values here.
         # Each new setting is a pair: (setting_name, default_value).
         # Prefix your setting names with 'MAILDEV_'.
-        ("MAILDEV_ENABLED", False),
         ("MAILDEV_WEB_PORT", 1080),
+        ("MAILDEV_SMTP_HOST", "maildev"),
         ("MAILDEV_SMTP_PORT", 1025),
-        ("MAILDEV_PUBLIC_HOST", "maildev.{{ LMS_HOST }}"),
-        ("MAILDEV_INDEX_PREFIX", "tutor_"),
+        ("MAILDEV_PUBLIC_HOST", "{{ MAILDEV_SMTP_HOST }}.{{ LMS_HOST }}"),
         ("MAILDEV_DOCKER_IMAGE", "maildev/maildev"),
     ]
 )
