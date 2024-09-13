@@ -2,13 +2,10 @@
 maildev:
   image: {{ MAILDEV_DOCKER_IMAGE }}
   environment:
-    - MAILDEV_WEB_PORT={{ MAILDEV_WEB_PORT }}
-    - MAILDEV_SMTP_PORT={{ MAILDEV_SMTP_PORT }}
+      - MAILDEV_MAIL_DIRECTORY=/data/maildev
   ports:
     - "{{ MAILDEV_WEB_PORT }}:1080"
     - "{{ MAILDEV_SMTP_PORT }}:1025"
-  restart: always
-  logging:
-    driver: "json-file"
-    options:
-      max-size: "1m"
+  volumes:
+      - ../../data/maildev:/data/maildev
+  restart: unless-stopped

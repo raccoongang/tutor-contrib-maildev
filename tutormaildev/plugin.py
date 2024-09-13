@@ -1,37 +1,36 @@
-from __future__ import annotations
-
 import os
 import typing as t
 from glob import glob
 
 import importlib_resources
 from tutor import hooks
+from tutor.__about__ import __version_suffix__
+
+from .__about__ import __version__
 
 ########################################
 # CONFIGURATION
 ########################################
 
-DEFAULT_EMAIL_PORT = 1025
+# Handle version suffix in nightly mode, just like tutor core
+if __version_suffix__:
+    __version__ += "-" + __version_suffix__
+
+HERE = os.path.abspath(os.path.dirname(__file__))
+
+config: dict[str, dict[str, t.Any]] = {
+    "defaults": {
+        "VERSION": __version__,
+        "WEB_PORT": 1080,
+        "SMTP_HOST": "maildev",
+        "SMTP_PORT": 1025,
+        "PUBLIC_HOST": "maildev.{{ LMS_HOST }}",
+        "DOCKER_IMAGE": "maildev/maildev",
+    },
+}
 
 hooks.Filters.CONFIG_DEFAULTS.add_items(
-    [
-        # Add your new settings that have default values here.
-        # Each new setting is a pair: (setting_name, default_value).
-        # Prefix your setting names with 'MAILDEV_'.
-        ("MAILDEV_WEB_PORT", 1080),
-        ("MAILDEV_SMTP_HOST", "maildev"),
-        ("MAILDEV_SMTP_PORT", DEFAULT_EMAIL_PORT),
-        ("MAILDEV_PUBLIC_HOST", "{{ MAILDEV_SMTP_HOST }}.{{ LMS_HOST }}"),
-        ("MAILDEV_DOCKER_IMAGE", "maildev/maildev"),
-    ]
-)
-
-hooks.Filters.CONFIG_OVERRIDES.add_items(
-    [
-        # Add your new settings that override existing settings here.
-        # Each new setting is a pair: (setting_name, new_value).
-        ("EMAIL_PORT", DEFAULT_EMAIL_PORT),
-    ]
+    [(f"MAILDEV_{key}", value) for key, value in config.get("defaults", {}).items()]
 )
 
 
@@ -44,32 +43,6 @@ def add_maildev_hosts(
     else:
         hosts.append("{{ MAILDEV_PUBLIC_HOST }}")
     return hosts
-
-
-########################################
-# TEMPLATE RENDERING
-# (It is safe & recommended to leave
-#  this section as-is :)
-########################################
-
-hooks.Filters.ENV_TEMPLATE_ROOTS.add_items(
-    # Root paths for template files, relative to the project root.
-    [
-        str(importlib_resources.files("tutormaildev") / "templates"),
-    ]
-)
-
-hooks.Filters.ENV_TEMPLATE_TARGETS.add_items(
-    # For each pair (source_path, destination_path):
-    # templates at ``source_path`` (relative to your ENV_TEMPLATE_ROOTS) will be
-    # rendered to ``source_path/destination_path`` (relative to your Tutor environment).
-    # For example, ``tutormaildev/templates/maildev/build``
-    # will be rendered to ``$(tutor config printroot)/env/plugins/maildev/build``.
-    [
-        ("maildev/build", "plugins"),
-        ("maildev/apps", "plugins"),
-    ],
-)
 
 
 ########################################

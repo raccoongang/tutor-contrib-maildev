@@ -28,24 +28,25 @@ ABOUT = load_about()
 setup(
     name="tutor-contrib-maildev",
     version=ABOUT["__version__"],
-    url="https://github.com/andrii-hantkovskyi/tutor-contrib-maildev",
+    url="https://github.com/raccoongang/tutor-contrib-maildev",
     project_urls={
-        "Code": "https://github.com/andrii-hantkovskyi/tutor-contrib-maildev",
-        "Issue tracker": "https://github.com/andrii-hantkovskyi/tutor-contrib-maildev/issues",
+        "Code": "https://github.com/raccoongang/tutor-contrib-maildev",
+        "Issue tracker": "https://github.com/raccoongang/tutor-contrib-maildev/issues",
     },
     license="AGPLv3",
-    author="Andrii Hantkovskyi",
-    author_email="andrii.hantkovskyi@gmail.com",
-    description="maildev plugin for Tutor",
+    author="Raccoon Gang",
+    author_email="stl@raccoongang.com",
+    maintainer="Edly",
+    description="Test Open edX emails during development with Maildev plugin for Tutor",
     long_description=load_readme(),
     long_description_content_type="text/x-rst",
     packages=find_packages(exclude=["tests*"]),
     include_package_data=True,
-    python_requires=">=3.7",
-    install_requires=["tutor>=16.0.0"],
+    python_requires=">=3.8",
+    install_requires=["tutor>=18.0.0,<19.0.0"],
     extras_require={
         "dev": [
-            "tutor[dev]>=16.0.0",
+            "tutor[dev]>=18.0.0,<19.0.0",
         ]
     },
     entry_points={
