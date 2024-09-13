@@ -1,7 +1,7 @@
-`MailDev`__ plugin for `Tutor`__
+`MailDev`_ plugin for `Tutor`_
 ================================
 
-This plugin enables local `MailDev`__  server for Open edX development with Tutor.
+This plugin enables local `MailDev`_  server for Open edX development with Tutor.
 
 
 Installation
@@ -30,7 +30,7 @@ Then, restart your platform and run the initialization scripts using:
 Using MailDev service
 ~~~~~~~~~~~~~~~~~~~~~
 The MailDev user interface will be available at `http://maildev.local.edly.io:1080/` for a development instance.
-`MailDev`__ is a simple way to test your project's generated emails during development with an easy to use web interface that runs on your machine.
+`MailDev`_ is a simple way to test your project's generated emails during development with an easy to use web interface that runs on your machine.
 
 .. image:: https://raw.githubusercontent.com/raccoongang/tutor-contrib-maildev/master/static/images/maildev-ui.png
     :alt: MailDev UI
